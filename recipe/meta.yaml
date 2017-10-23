@@ -13,24 +13,20 @@ source:
 
 build:
   number: 0
-  skip: true  # [win32 or osx or py34]
   features:
-    - vc9   # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and (py35 or py36)]
+    - vc{{ vc }}   # [win]
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
-  build:
+  host:
     - python
     - setuptools
-    - numpy >=1.11.3
-    - scipy >=0.18.1
-    - six >=1.5.0
-    - smart_open >=1.2.1
+    - numpy 1.11.*
+  build:
+    - {{ compiler('c') }}
   run:
     - python
-    - numpy >=1.11.3
+    - {{ pin_compatible('numpy') }}
     - scipy >=0.18.1
     - six >=1.5.0
     - smart_open >=1.2.1
