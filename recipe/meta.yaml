@@ -10,6 +10,9 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
+  patches:
+    # https://github.com/RaRe-Technologies/gensim/pull/1647
+    - 0001-Fix-test_filename_filtering-test.patch
 
 build:
   number: 0

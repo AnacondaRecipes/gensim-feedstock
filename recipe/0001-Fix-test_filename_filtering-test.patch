@@ -1,0 +1,37 @@
+From 1d44cfe28adde49bde86ef3d9a80485f61d98e09 Mon Sep 17 00:00:00 2001
+From: Nehal J Wani <nehaljw.kkd1@gmail.com>
+Date: Tue, 24 Oct 2017 01:06:08 -0500
+Subject: [PATCH] Fix test_filename_filtering test
+
+CI tests fail with:
+
+======================================================================
+FAIL: test_filename_filtering (gensim.test.test_corpora.TestTextDirectoryCorpus)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File ".../lib/python3.6/site-packages/gensim/test/test_corpora.py", line 462, in test_filename_filtering
+      self.assertEqual(expected, filenames)
+      AssertionError: Lists differ: ['/tmp/tmp0j1tou_7/test1.log', '/tmp/tmp0j1tou_7/test2.log'] != ['/tmp/tmp0j1tou_7/test2.log', '/tmp/tmp0j1tou_7/test1.log']
+
+It's not a real failure, since the files are correct, only their order of
+comparison is not same
+---
+ gensim/test/test_corpora.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gensim/test/test_corpora.py b/gensim/test/test_corpora.py
+index 3f7f4e81..0456ea94 100644
+--- a/gensim/test/test_corpora.py
++++ b/gensim/test/test_corpora.py
+@@ -459,7 +459,7 @@ class TestTextDirectoryCorpus(unittest.TestCase):
+         corpus = textcorpus.TextDirectoryCorpus(dirpath, pattern="test.*\.log")
+         filenames = list(corpus.iter_filepaths())
+         expected = [os.path.join(dirpath, name) for name in ('test1.log', 'test2.log')]
+-        self.assertEqual(expected, filenames)
++        self.assertEqual(sorted(expected), sorted(filenames))
+ 
+         corpus.pattern = ".*.txt"
+         filenames = list(corpus.iter_filepaths())
+-- 
+2.14.1
+
