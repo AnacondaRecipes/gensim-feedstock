@@ -1,6 +1,6 @@
 {% set name = "gensim" %}
-{% set version = "3.0.1" %}
-{% set sha256 = "4827012f6f020ac4f4067c2a2a88542391917113faaa417505e1ee8a1e7e2650" %}
+{% set version = "3.1.0" %}
+{% set sha256 = "eaf6ece613b47eff19be5b1344e9ac2d65a681f3edd2b8d347458bf87ada8b24" %}
 
 package:
   name: {{ name|lower }}
@@ -10,9 +10,6 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
-  patches:
-    # https://github.com/RaRe-Technologies/gensim/pull/1647
-    - 0001-Fix-test_filename_filtering-test.patch
 
 build:
   number: 0
