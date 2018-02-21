@@ -42,6 +42,7 @@ test:
     - gensim
     - gensim.corpora
     - gensim.models
+    - gensim.models.deprecated
     - gensim.models.wrappers
     - gensim.parsing
     - gensim.scripts
@@ -50,6 +51,7 @@ test:
     - gensim.summarization
     - gensim.test
     - gensim.topic_coherence
+    - gensim.viz
   files:
     - forge_test.sh
   commands:
