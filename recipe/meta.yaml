@@ -1,27 +1,31 @@
 {% set name = "gensim" %}
-{% set version = "3.6.0" %}
-{% set sha256 = "24adaca52e8d821a2f5d5e6fe2e37cf321b1fafb505926ea79a7c2f019ce5b07" %}
+{% set version = "3.8.3" %}
+{% set sha256 = "786adb0571f75114e9c5f7a31dd2e6eb39a9791f22c8757621545e2ded3ea367" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 2
+  skip: true  # [py==27]
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
-  host:
-    - python
-    - setuptools
-    - numpy 1.11.*
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - python
+    - pip
+    - numpy >=1.11.3
+    - scipy >=0.18.1
+    - six >=1.5.0
+    - smart_open >=1.2.1
   run:
     - python
     - {{ pin_compatible('numpy') }}
@@ -38,6 +42,7 @@ test:
     - pyemd
     - mock
     - boto3
+    - python-Levenshtein
   imports:
     - gensim
     - gensim.corpora
@@ -57,17 +62,16 @@ test:
   commands:
     - time bash ./forge_test.sh  # [not win]
     - nosetests --exe -v gensim  # [win]
-    
+
 about:
   home: http://github.com/RaRe-Technologies/gensim
-  license: LGPL-3.0
+  license: LGPL-2.1-only
   license_file: COPYING
-  license_family: LGPL
-  summary: 'Topic Modelling for Humans'
+  summary: Topic Modelling for Humans
   description: |
-    Gensim is a Python library for topic modelling, document indexing 
-    and similarity retrieval with large corpora. 
-    Target audience is the natural language processing (NLP) 
+    Gensim is a Python library for topic modelling, document indexing
+    and similarity retrieval with large corpora.
+    Target audience is the natural language processing (NLP)
     and information retrieval (IR) community.
   doc_url: http://radimrehurek.com/gensim/
   dev_url: https://github.com/RaRe-Technologies/gensim
@@ -75,4 +79,4 @@ about:
 extra:
   recipe-maintainers:
     - souravsingh
-    - menshikh-iv
+    - mpenkov
