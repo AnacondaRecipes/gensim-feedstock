@@ -25,13 +25,13 @@ requirements:
     - numpy >=1.11.3
     - scipy >=0.18.1
     - six >=1.5.0
-    - smart_open >=1.2.1
+    - smart_open >=1.8.1
   run:
     - python
     - {{ pin_compatible('numpy') }}
     - scipy >=0.18.1
     - six >=1.5.0
-    - smart_open >=1.2.1
+    - smart_open >=1.8.1
 
 test:
   requires:
@@ -59,9 +59,9 @@ test:
     - gensim.viz
   files:
     - forge_test.sh
-  commands:
-    - time bash ./forge_test.sh  # [not win]
-    - nosetests --exe -v gensim  # [win]
+  commands:  # [py>37]
+    - time bash ./forge_test.sh  # [not win and py>37]
+    - nosetests --exe -v gensim  # [win and py>37]
 
 about:
   home: http://github.com/RaRe-Technologies/gensim
