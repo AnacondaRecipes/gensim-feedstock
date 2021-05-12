@@ -1,6 +1,6 @@
 {% set name = "gensim" %}
-{% set version = "3.8.3" %}
-{% set sha256 = "786adb0571f75114e9c5f7a31dd2e6eb39a9791f22c8757621545e2ded3ea367" %}
+{% set version = "4.0.1" %}
+{% set sha256 = "b4d0b9562796968684028e06635e0f7aff39ffb33719057fd1667754ea09a6e4" %}
 
 package:
   name: {{ name|lower }}
@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   skip: true  # [py==27]
   script: {{ PYTHON }} -m pip install . -vv
 
@@ -27,6 +27,7 @@ requirements:
     - six >=1.5.0
     - smart_open >=1.8.1
   run:
+    - dataclasses  # [py<37]
     - python
     - {{ pin_compatible('numpy') }}
     - scipy >=0.18.1
@@ -34,34 +35,15 @@ requirements:
     - smart_open >=1.8.1
 
 test:
-  requires:
-    - nose
-    - testfixtures
-    - morfessor
-    - scikit-learn
-    - pyemd
-    - mock
-    - boto3
-    - python-Levenshtein
   imports:
     - gensim
     - gensim.corpora
     - gensim.models
-    - gensim.models.deprecated
-    - gensim.models.wrappers
     - gensim.parsing
     - gensim.scripts
     - gensim.similarities
-    - gensim.sklearn_api
-    - gensim.summarization
     - gensim.test
     - gensim.topic_coherence
-    - gensim.viz
-  files:
-    - forge_test.sh
-  commands:  # [py>37]
-    - time bash ./forge_test.sh  # [not win and py>37]
-    - nosetests --exe -v gensim  # [win and py>37]
 
 about:
   home: http://github.com/RaRe-Technologies/gensim
