@@ -28,6 +28,7 @@ requirements:
     - smart_open >=1.8.1
   run:
     - python
+    - dataclasses  # [py<37]
     - {{ pin_compatible('numpy') }}
     - scipy >=0.18.1
     - six >=1.5.0
@@ -47,16 +48,11 @@ test:
     - gensim
     - gensim.corpora
     - gensim.models
-    - gensim.models.deprecated
-    - gensim.models.wrappers
     - gensim.parsing
     - gensim.scripts
     - gensim.similarities
-    - gensim.sklearn_api
-    - gensim.summarization
     - gensim.test
     - gensim.topic_coherence
-    - gensim.viz
   files:
     - forge_test.sh
   commands:  # [py>37]
