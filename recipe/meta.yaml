@@ -11,8 +11,8 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
-  skip: true  # [py==27]
+  number: 0 
+  skip: true  # [py<36]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -23,15 +23,13 @@ requirements:
     - python
     - pip
     - numpy >=1.11.3
-    - scipy >=0.18.1
-    - six >=1.5.0
-    - smart_open >=1.8.1
+    - cython ==0.29.23
   run:
     - python
-    - {{ pin_compatible('numpy') }}
+    - numpy >=1.11.3
     - scipy >=0.18.1
-    - six >=1.5.0
     - smart_open >=1.8.1
+    - dataclasses   #[py<37]
 
 test:
   requires:
@@ -47,21 +45,11 @@ test:
     - gensim
     - gensim.corpora
     - gensim.models
-    - gensim.models.deprecated
-    - gensim.models.wrappers
     - gensim.parsing
     - gensim.scripts
     - gensim.similarities
-    - gensim.sklearn_api
-    - gensim.summarization
     - gensim.test
     - gensim.topic_coherence
-    - gensim.viz
-  files:
-    - forge_test.sh
-  commands:  # [py>37]
-    - time bash ./forge_test.sh  # [not win and py>37]
-    - nosetests --exe -v gensim  # [win and py>37]
 
 about:
   home: http://github.com/RaRe-Technologies/gensim
