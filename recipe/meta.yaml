@@ -29,18 +29,17 @@ requirements:
     - numpy >=1.11.3
     - scipy >=0.18.1
     - smart_open >=1.8.1
+    - cython ==0.29.23
     - dataclasses   #[py<37]
 
 test:
   requires:
-    - nose
+    - pytest
     - testfixtures
     - morfessor
-    - scikit-learn
+    - cython
     - pyemd
     - mock
-    - boto3
-    - python-Levenshtein
   imports:
     - gensim
     - gensim.corpora
