@@ -22,14 +22,14 @@ requirements:
   host:
     - python
     - pip
-    - cython ==0.29.23
+    - cython >=0.29.23
     - numpy >=1.17.0
     - setuptools
     - wheel
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - cython ==0.29.23
+    - cython >=0.29.23
     - dataclasses   # [py<37]
     - scipy >=0.18.1
     - smart_open >=1.8.1
