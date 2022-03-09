@@ -1,6 +1,6 @@
 {% set name = "gensim" %}
-{% set version = "4.0.1" %}
-{% set sha256 = "b4d0b9562796968684028e06635e0f7aff39ffb33719057fd1667754ea09a6e4" %}
+{% set version = "4.1.2" %}
+{% set sha256 = "1932c257de4eccbb64cc40d46e8577a25f5f47b94b96019a969fb36150f11d15" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,8 @@ source:
 
 build:
   number: 0 
-  skip: true  # [py<36]
+  # gensim and pyemd currently aren't available on s390x
+  skip: true  # [py<36 or s390x]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -22,15 +23,17 @@ requirements:
   host:
     - python
     - pip
-    - numpy >=1.11.3
-    - cython ==0.29.23
+    - cython >=0.29.23
+    - numpy >=1.17.0
+    - setuptools
+    - wheel
   run:
     - python
-    - numpy >=1.11.3
+    - {{ pin_compatible('numpy') }}
+    - cython >=0.29.23
+    - dataclasses   # [py<37]
     - scipy >=0.18.1
     - smart_open >=1.8.1
-    - cython ==0.29.23
-    - dataclasses   #[py<37]
 
 test:
   requires:
@@ -38,8 +41,10 @@ test:
     - testfixtures
     - morfessor
     - cython
-    - pyemd
+    - pyemd  # [not (linux and s390x)]
     - mock
+    - pip
+    - google-cloud-core >=1.7.1  # [osx and arm64]
   imports:
     - gensim
     - gensim.corpora
@@ -49,10 +54,13 @@ test:
     - gensim.similarities
     - gensim.test
     - gensim.topic_coherence
+  commands:
+    - pip check
 
 about:
-  home: http://github.com/RaRe-Technologies/gensim
+  home: https://github.com/RaRe-Technologies/gensim
   license: LGPL-2.1-only
+  license_family: LGPL
   license_file: COPYING
   summary: Topic Modelling for Humans
   description: |
@@ -60,7 +68,7 @@ about:
     and similarity retrieval with large corpora.
     Target audience is the natural language processing (NLP)
     and information retrieval (IR) community.
-  doc_url: http://radimrehurek.com/gensim/
+  doc_url: https://radimrehurek.com/gensim/
   dev_url: https://github.com/RaRe-Technologies/gensim
 
 extra:
