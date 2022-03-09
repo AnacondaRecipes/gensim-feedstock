@@ -12,7 +12,8 @@ source:
 
 build:
   number: 0 
-  skip: true  # [py<36]
+  # gensim and pyemd currently aren't available on s390x
+  skip: true  # [py<36 or s390x]
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -40,9 +41,10 @@ test:
     - testfixtures
     - morfessor
     - cython
-    - pyemd
+    - pyemd  # [not (linux and s390x)]
     - mock
     - pip
+    - google-cloud-core >=1.7.1  # [osx and arm64]
   imports:
     - gensim
     - gensim.corpora
