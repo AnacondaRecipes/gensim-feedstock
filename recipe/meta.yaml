@@ -24,8 +24,9 @@ requirements:
     - python
     - pip
     - cython
-    # NUMPY_STR = 'numpy >= 1.18.5', which is okay as per our current cbc.
-    - numpy
+    # NUMPY_STR = 'numpy >= 1.18.5'
+    - numpy 1.18 # [(not (osx and arm64)) and py<310]
+    - numpy      # [(osx and arm64) or py>=310]
     - setuptools
     - wheel
   run:
