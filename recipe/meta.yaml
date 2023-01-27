@@ -1,13 +1,13 @@
 {% set name = "gensim" %}
 {% set version = "4.3.0" %}
-{% set sha256 = "64bd7ec62990215878822e8b2569d1835054f56cdf53600ddfe9927e31f3b48d" %}
+{% set sha256 = "14f5f46425249ad415f40e6a87cf6b8e19a8649a1805e725947243495b600977" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://github.com/RaRe-Technologies/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
