@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 0 
+  number: 1 
   # gensim and pyemd currently aren't available on s390x
   skip: true  # [py<38 or s390x]
   script: {{ PYTHON }} -m pip install --no-deps . -vv
@@ -23,7 +23,7 @@ requirements:
   host:
     - python
     - pip
-    - cython 0.29.32
+    - cython 0.29
     # NUMPY_STR = 'numpy >= 1.18.5' - only 1.19 available across archs
     - numpy 1.19 # [(not (osx and arm64)) and py<310]
     - numpy      # [(osx and arm64) or py>=310]
