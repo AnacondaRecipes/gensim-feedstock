@@ -32,8 +32,6 @@ requirements:
     - {{ pin_compatible('numpy') }}
     - scipy >=1.7.0
     - smart_open >=1.8.1
-    # fuzzytm is actually not used. See: https://github.com/RaRe-Technologies/gensim/issues/3423
-    #- fuzzytm 
 
 test:
   imports:
@@ -48,9 +46,7 @@ test:
   requires:
     - pip
   commands:
-    # pip check fails because of fuzzytm
-    - pip check || true  # [not win]
-    - pip check || cmd /K "exit /b 0"  # [win]
+    - pip check
 
 
 about:
