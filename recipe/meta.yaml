@@ -1,6 +1,6 @@
 {% set name = "gensim" %}
-{% set version = "4.3.0" %}
-{% set sha256 = "14f5f46425249ad415f40e6a87cf6b8e19a8649a1805e725947243495b600977" %}
+{% set version = "4.3.2" %}
+{% set sha256 = "9c3e471e52ea47f669873ff56c8606b99ad09cf2e31ccf232af5ace212e84167" %}
 
 package:
   name: {{ name|lower }}
@@ -11,10 +11,10 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1 
+  number: 0
   # gensim and pyemd currently aren't available on s390x
   skip: true  # [py<38 or s390x]
-  script: {{ PYTHON }} -m pip install --no-deps . -vv
+  script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
 
 requirements:
   build:
@@ -24,9 +24,7 @@ requirements:
     - python
     - pip
     - cython 0.29
-    # NUMPY_STR = 'numpy >= 1.18.5' - only 1.19 available across archs
-    - numpy 1.19 # [(not (osx and arm64)) and py<310]
-    - numpy      # [(osx and arm64) or py>=310]
+    - numpy {{numpy}}
     - setuptools
     - wheel
   run:
