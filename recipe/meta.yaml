@@ -45,8 +45,13 @@ test:
     - gensim.topic_coherence
   requires:
     - pip
+    - pytest
+    - testfixtures
+  source_files:
+    - gensim/test
   commands:
     - pip check
+    - pytest -v gensim/test
 
 
 about:
