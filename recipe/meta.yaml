@@ -1,6 +1,6 @@
 {% set name = "gensim" %}
-{% set version = "4.3.2" %}
-{% set sha256 = "9c3e471e52ea47f669873ff56c8606b99ad09cf2e31ccf232af5ace212e84167" %}
+{% set version = "4.3.3" %}
+{% set sha256 = "a0787f45b42829af77022469c57b10b5bdf106fa66fa0f75e3bcbb387be55c82" %}
 
 package:
   name: {{ name|lower }}
@@ -23,14 +23,14 @@ requirements:
   host:
     - python
     - pip
-    - cython 0.29
+    - cython >=0.29.32,<3
     - numpy {{numpy}}
     - setuptools
     - wheel
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - scipy >=1.7.0
+    - scipy >=1.7.0,<1.14.0
     - smart_open >=1.8.1
 
 test:
@@ -45,8 +45,13 @@ test:
     - gensim.topic_coherence
   requires:
     - pip
+    - pytest
+    - testfixtures
+  source_files:
+    - gensim/test
   commands:
     - pip check
+    - pytest -v gensim/test -k "not test_distance"
 
 
 about:
