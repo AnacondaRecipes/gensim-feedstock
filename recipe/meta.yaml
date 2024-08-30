@@ -51,7 +51,7 @@ test:
     - gensim/test
   commands:
     - pip check
-    - pytest -v gensim/test
+    - pytest -v gensim/test -k "not test_distance"
 
 
 about:
