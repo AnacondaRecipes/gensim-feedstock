@@ -1,6 +1,5 @@
 {% set name = "gensim" %}
 {% set version = "4.4.0" %}
-{% set sha256 = "0c1c8984f18512aba04332b45dc58698ac277dfa1d314a190a3f07edc48c31ac" %}
 
 package:
   name: {{ name|lower }}
@@ -8,17 +7,17 @@ package:
 
 source:
   url: https://github.com/RaRe-Technologies/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 0c1c8984f18512aba04332b45dc58698ac277dfa1d314a190a3f07edc48c31ac
 
 build:
   number: 0
-  # gensim and pyemd currently aren't available on s390x
-  skip: true  # [py<38 or s390x]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
   host:
     - python
@@ -27,12 +26,10 @@ requirements:
     - numpy {{numpy}}
     - setuptools
     - wheel
-    - numpy >=1.18.5  # [py>=39]
     - scipy
-    - wheelhouse_uploader
   run:
     - python
-    - {{ pin_compatible('numpy') }}
+    - numpy >=1.18.5
     - scipy >=1.7.0
     - smart_open >=1.8.1
   run_constrained:
@@ -56,7 +53,7 @@ test:
     - gensim/test
   commands:
     - pip check
-    - pytest -v gensim/test -k "not test_distance"
+    - pytest -v gensim/test
 
 about:
   home: https://github.com/RaRe-Technologies/gensim
