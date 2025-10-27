@@ -56,7 +56,8 @@ test:
     - pip check
     # test_distance - numerical instability np.float32(1.1920929e-07) != 0
     # test_parallel - race conditions
-    - pytest -v gensim/test -k "not (test_distance or test_parallel)"
+    # test_persistence_separate_file - random access denied
+    - pytest -v gensim/test -k "not (test_distance or test_parallel or test_persistence_separate_file)"
 
 about:
   home: https://github.com/RaRe-Technologies/gensim
