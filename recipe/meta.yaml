@@ -46,6 +46,11 @@ test:
     - gensim.similarities
     - gensim.test
     - gensim.topic_coherence
+    - gensim._matutils
+    - gensim.downloader
+    - gensim.interfaces
+    - gensim.matutils
+    - gensim.utils
   requires:
     - pip
     - pytest
